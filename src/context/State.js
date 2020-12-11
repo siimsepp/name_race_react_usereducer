@@ -28,14 +28,15 @@ const State = props => {
 
   const andmedSisse = ({ arrNames, punktini }) => {
     const punktidNum = +punktini
+    // Kui on kolm mängijat, siis teeb array: [0, 0, 0]
     let summad = new Array(arrNames.length + 1).join('0').split('').map(parseFloat)
-    dispatch({ type: 'SET_SCORE', payload: [...summad] })
-    dispatch({ type: 'SET_NAMES', payload: [...arrNames] })
-    dispatch({ type: 'SET_PUNKTINI', value: punktidNum })
-    dispatch({ type: 'SET_STATS', payload: [...summad] })
     dispatch({
-      type: 'SET_DISPLAY',
-      payload: {
+      type: 'FORM_SUBMIT_BTN_CLICKED',
+      score: summad,
+      names: arrNames,
+      punktini: punktidNum,
+      stats: summad,
+      display: {
         sisendForm: false,
         pickWinnerBtn: true,
         vooruVoitja: false,
@@ -61,22 +62,24 @@ const State = props => {
     copyScore[randNum] += 1
     // Kui max skoor on võrdne punktini mängitava skooriga, siis on meil olemas võitja
     let winnerGame
-
     if (Math.max(...copyScore) === state.punktini) {
-      dispatch({ type: 'SET_PICKWINNERBTN_DISABLED', value: true })
       let i = copyScore.indexOf(Math.max(...copyScore))
       winnerGame = state.names[i]
-      dispatch({ type: 'SET_MANGU_VOITJA', value: winnerGame })
       // Lisa võit võitja statistikasse
       const statNow = [...state.stats]
       statNow[i] += 1
-      dispatch({ type: 'SET_STATS', payload: [...statNow] })
+      dispatch({
+        type: 'PICK_WINNER_BTN_CLICKED_WITH_GAME_WINNER',
+        pickWinnerBtnDisabled: true,
+        manguVoitja: winnerGame,
+        stats: statNow
+      })
     }
-    dispatch({ type: 'SET_SCORE', payload: copyScore })
-    dispatch({ type: 'SET_VOORU_VOITJA', value: voitja })
     dispatch({
-      type: 'SET_DISPLAY',
-      payload: {
+      type: 'PICK_WINNER_BTN_CLICKED_NO_GAME_WINNER',
+      score: copyScore,
+      vooruVoitja: voitja,
+      display: {
         sisendForm: false,
         pickWinnerBtn: winnerGame ? false : true,
         vooruVoitja: true,
@@ -89,13 +92,13 @@ const State = props => {
   }
 
   const sisestaUuedMangijad = () => {
-    dispatch({ type: 'SET_STATS', payload: [] })
-    dispatch({ type: 'SET_MANGU_VOITJA', value: '' })
-    dispatch({ type: 'SET_PICKWINNERBTN_DISABLED', value: false })
-    dispatch({ type: 'SET_LOPETAMANGBTN_DISABLED', value: false })
     dispatch({
-      type: 'SET_DISPLAY',
-      payload: {
+      type: 'NEW_PLAYERS_BTN_CLICKED',
+      stats: [],
+      manguVoitja: '',
+      pickWinnerBtnDisabled: false,
+      lopetaMangBtnDisabled: false,
+      display: {
         sisendForm: true,
         pickWinnerBtn: false,
         vooruVoitja: false,
@@ -108,15 +111,15 @@ const State = props => {
   }
 
   const mangiUuesti = () => {
-    dispatch({ type: 'SET_MANGU_VOITJA', value: '' })
-    dispatch({ type: 'SET_VOORU_VOITJA', value: '' })
-    dispatch({ type: 'SET_PICKWINNERBTN_DISABLED', value: false })
-    dispatch({ type: 'SET_LOPETAMANGBTN_DISABLED', value: false })
     let summad = new Array(state.names.length + 1).join('0').split('').map(parseFloat)
-    dispatch({ type: 'SET_SCORE', payload: summad })
     dispatch({
-      type: 'SET_DISPLAY',
-      payload: {
+      type: 'PLAY_AGAIN_BTN_CLICKED',
+      score: summad,
+      manguVoitja: '',
+      vooruVoitja: '',
+      pickWinnerBtnDisabled: false,
+      lopetaMangBtnDisabled: false,
+      display: {
         sisendForm: false,
         pickWinnerBtn: true,
         vooruVoitja: false,
@@ -130,8 +133,8 @@ const State = props => {
 
   const vaataStatistikat = () => {
     dispatch({
-      type: 'SET_DISPLAY',
-      payload: {
+      type: 'STATISTICS_BTN_CLICKED',
+      display: {
         sisendForm: false,
         pickWinnerBtn: false,
         vooruVoitja: false,

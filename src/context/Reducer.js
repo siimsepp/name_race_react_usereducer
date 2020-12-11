@@ -1,61 +1,95 @@
 const Reducer = (state, action) => {
   switch (action.type) {
+    case 'FORM_SUBMIT_BTN_CLICKED':
+      return {
+        ...state,
+        score: action.score,
+        names: action.names,
+        punktini: action.punktini,
+        stats: action.stats,
+        display: {
+          sisendForm: action.display.sisendForm,
+          pickWinnerBtn: action.display.pickWinnerBtn,
+          vooruVoitja: action.display.vooruVoitja,
+          resultsTable: action.display.resultsTable,
+          manguVoitja: action.display.manguVoitja,
+          mangiUuestiBtn: action.display.mangiUuestiBtn,
+          statistika: action.display.statistika
+        }
+      }
+    case 'NEW_PLAYERS_BTN_CLICKED':
+      return {
+        ...state,
+        stats: action.stats,
+        manguVoitja: action.manguVoitja,
+        pickWinnerBtnDisabled: action.pickWinnerBtnDisabled,
+        lopetaMangBtnDisabled: action.lopetaMangBtnDisabled,
+        display: {
+          sisendForm: action.display.sisendForm,
+          pickWinnerBtn: action.display.pickWinnerBtn,
+          vooruVoitja: action.display.vooruVoitja,
+          resultsTable: action.display.resultsTable,
+          manguVoitja: action.display.manguVoitja,
+          mangiUuestiBtn: action.display.mangiUuestiBtn,
+          statistika: action.display.statistika
+        }
+      }
+    case 'PICK_WINNER_BTN_CLICKED_WITH_GAME_WINNER':
+      return {
+        ...state,
+        pickWinnerBtnDisabled: action.pickWinnerBtnDisabled,
+        manguVoitja: action.manguVoitja,
+        stats: action.stats
+      }
+    case 'PICK_WINNER_BTN_CLICKED_NO_GAME_WINNER':
+      return {
+        ...state,
+        score: action.score,
+        vooruVoitja: action.vooruVoitja,
+        display: {
+          sisendForm: action.display.sisendForm,
+          pickWinnerBtn: action.display.pickWinnerBtn,
+          vooruVoitja: action.display.vooruVoitja,
+          resultsTable: action.display.resultsTable,
+          manguVoitja: action.display.manguVoitja,
+          mangiUuestiBtn: action.display.mangiUuestiBtn,
+          statistika: action.display.statistika
+        }
+      }
     case 'SET_ALERT':
       return {
         ...state,
         alertNimed: action.value
       }
-    case 'SET_SCORE':
-      return {
-        ...state,
-        score: action.payload
-      }
-    case 'SET_NAMES':
-      return {
-        ...state,
-        names: action.payload
-      }
-    case 'SET_PUNKTINI':
-      return {
-        ...state,
-        punktini: action.value
-      }
-    case 'SET_STATS':
-      return {
-        ...state,
-        stats: action.payload
-      }
-    case 'SET_MANGU_VOITJA':
-      return {
-        ...state,
-        manguVoitja: action.value
-      }
-    case 'SET_VOORU_VOITJA':
-      return {
-        ...state,
-        vooruVoitja: action.value
-      }
-    case 'SET_PICKWINNERBTN_DISABLED':
-      return {
-        ...state,
-        pickWinnerBtnDisabled: action.value
-      }
-    case 'SET_LOPETAMANGBTN_DISABLED':
-      return {
-        ...state,
-        lopetaMangBtnDisabled: action.value
-      }
-    case 'SET_DISPLAY':
+    case 'STATISTICS_BTN_CLICKED':
       return {
         ...state,
         display: {
-          sisendForm: action.payload.sisendForm,
-          pickWinnerBtn: action.payload.pickWinnerBtn,
-          vooruVoitja: action.payload.vooruVoitja,
-          resultsTable: action.payload.resultsTable,
-          manguVoitja: action.payload.manguVoitja,
-          mangiUuestiBtn: action.payload.mangiUuestiBtn,
-          statistika: action.payload.statistika
+          sisendForm: action.display.sisendForm,
+          pickWinnerBtn: action.display.pickWinnerBtn,
+          vooruVoitja: action.display.vooruVoitja,
+          resultsTable: action.display.resultsTable,
+          manguVoitja: action.display.manguVoitja,
+          mangiUuestiBtn: action.display.mangiUuestiBtn,
+          statistika: action.display.statistika
+        }
+      }
+    case 'PLAY_AGAIN_BTN_CLICKED':
+      return {
+        ...state,
+        score: action.score,
+        manguVoitja: action.manguVoitja,
+        vooruVoitja: action.vooruVoitja,
+        pickWinnerBtnDisabled: action.pickWinnerBtnDisabled,
+        lopetaMangBtnDisabled: action.lopetaMangBtnDisabled,
+        display: {
+          sisendForm: action.display.sisendForm,
+          pickWinnerBtn: action.display.pickWinnerBtn,
+          vooruVoitja: action.display.vooruVoitja,
+          resultsTable: action.display.resultsTable,
+          manguVoitja: action.display.manguVoitja,
+          mangiUuestiBtn: action.display.mangiUuestiBtn,
+          statistika: action.display.statistika
         }
       }
     default:

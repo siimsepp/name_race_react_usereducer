@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import Context from '../context/Context'
 
-function Sisend(props) {
+function Sisend() {
   const [state, setState] = useState({
     names: '',
     punktini: ''
