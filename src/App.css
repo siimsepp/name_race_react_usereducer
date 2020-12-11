@@ -1,0 +1,11 @@
+.btn-margin {
+  margin-right: 0.5em;
+}
+
+.alert {
+  padding: 0.7rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: rgb(196, 74, 74);
+  color: #fff;
+}
