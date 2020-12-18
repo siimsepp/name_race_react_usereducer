@@ -68,34 +68,30 @@ function Sisend() {
   }
 
   return (
-    <div className='row'>
-      <div className='card-content'>
-        <form onSubmit={handleSubmit}>
-          <input
-            type='text'
-            id='nimed'
-            name='names'
-            value={names}
-            onChange={handleChange}
-            placeholder='Eralda nimed komaga'
-            ref={inputRef}
-          />
+    <form onSubmit={handleSubmit}>
+      <input
+        type='text'
+        id='nimed'
+        name='names'
+        value={names}
+        onChange={handleChange}
+        placeholder='Eralda nimed komaga'
+        ref={inputRef}
+      />
 
-          <input
-            type='text'
-            id='punktid'
-            name='punktini'
-            value={punktini}
-            onChange={handleChange}
-            placeholder='Mitme punkti peale mäng käib'
-          />
+      <input
+        type='text'
+        id='punktid'
+        name='punktini'
+        value={punktini}
+        onChange={handleChange}
+        placeholder='Mitme punkti peale mäng käib'
+      />
 
-          <button type='submit' className='btn waves-effect waves-light blue'>
-            Mängima
-          </button>
-        </form>
-      </div>
-    </div>
+      <button type='submit' className='btn btn-shadow blue'>
+        Mängima
+      </button>
+    </form>
   )
 }
 

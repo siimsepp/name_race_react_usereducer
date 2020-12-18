@@ -5,7 +5,7 @@ const Alert = () => {
   const context = useContext(Context)
   const { alertNimed } = context
 
-  return <div className='alert'>{alertNimed}</div>
+  return alertNimed !== '' && <div className='alert'>{alertNimed}</div>
 }
 
 export default Alert

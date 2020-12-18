@@ -19,11 +19,11 @@ const Statistika = () => {
 
   return (
     <div>
-      <p>
+      <p style={{ marginBottom: '1.5rem' }}>
         {nimedTekstina(names)} on osalenud{' '}
-        <span style={{ color: 'blue', fontSize: '22px' }}>{stats.reduce((a, b) => a + b)}</span> mängus
+        <span style={{ color: 'blue', fontSize: '22px' }}>{stats.reduce((a, b) => a + b)}.</span> mängus
       </p>
-      <h5>Tulemused:</h5>
+      <p>Tulemused:</p>
       <ul className='collection'>
         {names.map((name, index) => (
           <li key={index} className='collection-item'>
@@ -39,10 +39,10 @@ const Statistika = () => {
       )}
 
       <div>
-        <button className='btn waves-effect waves-light green btn-margin' onClick={mangiUuesti}>
+        <button className='btn btn-shadow green' onClick={mangiUuesti}>
           Mängi uuesti
         </button>
-        <button className='btn waves-effect waves-light purple btn-margin' onClick={sisestaUuedMangijad}>
+        <button className='btn btn-shadow purple' onClick={sisestaUuedMangijad}>
           Sisesta uued mängijad
         </button>
       </div>
