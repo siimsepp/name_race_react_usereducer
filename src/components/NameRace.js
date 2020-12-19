@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Fragment } from 'react'
 import Sisend from './Sisend'
 import ResultsTable from './ResultsTable'
 import Alert from './Alert'
@@ -20,7 +20,7 @@ function NameRace() {
   } = context
 
   return (
-    <div className='container'>
+    <Fragment>
       <div className='card-container'>
         <div className='card card-shadow'>
           <Alert />
@@ -67,7 +67,7 @@ function NameRace() {
           {display.statistika && <Statistika />}
         </div>
       </div>
-    </div>
+    </Fragment>
   )
 }
 

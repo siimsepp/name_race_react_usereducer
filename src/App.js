@@ -1,13 +1,29 @@
 import './App.css'
+import React, { Fragment } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import NameRace from './components/NameRace'
+import About from './components/About'
 import State from './context/State'
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <State>
-      <div className='App'>
-        <NameRace />
-      </div>
+      <BrowserRouter>
+        <div className='navbar'>
+          <Navbar />
+        </div>
+        <Switch>
+          <Fragment>
+            <div className='App'>
+              <div className='container'>
+                <Route exact path='/' component={NameRace} />
+                <Route exact path='/about' component={About} />
+              </div>
+            </div>
+          </Fragment>
+        </Switch>
+      </BrowserRouter>
     </State>
   )
 }
