@@ -13,6 +13,8 @@ const State = props => {
     lopetaMangBtnDisabled: false,
     alertNimed: '',
     stats: [],
+    fairGame: false,
+    protsMangijale: [],
     display: {
       sisendForm: true,
       pickWinnerBtn: false,
@@ -26,7 +28,7 @@ const State = props => {
 
   const [state, dispatch] = useReducer(Reducer, initialState)
 
-  const andmedSisse = ({ arrNames, punktini }) => {
+  const andmedSisse = ({ arrNames, punktini, fairGame }) => {
     const punktidNum = +punktini
     // Kui on kolm mängijat, siis teeb array: [0, 0, 0]
     let summad = new Array(arrNames.length + 1).join('0').split('').map(parseFloat)
@@ -36,6 +38,7 @@ const State = props => {
       names: arrNames,
       punktini: punktidNum,
       stats: summad,
+      fairGame: fairGame,
       display: {
         sisendForm: false,
         pickWinnerBtn: true,
@@ -55,11 +58,45 @@ const State = props => {
     }, 4000)
   }
 
-  const pickWinner = () => {
-    const randNum = Math.floor(Math.random() * state.names.length + 1) - 1
-    const voitja = state.names[randNum]
+  const setProbabilities = voitjaIdx => {
     const copyScore = [...state.score]
-    copyScore[randNum] += 1
+    copyScore[voitjaIdx] += 1
+    const mituVaja = copyScore.map(arv => state.punktini - arv)
+    const kokkuPuudu = mituVaja.reduce((a, b) => a + b)
+    const protsMangijale = mituVaja.map(arv => arv / kokkuPuudu)
+    dispatch({
+      type: 'SET_PROBS',
+      protsMangijale
+    })
+  }
+
+  // kui on tagaajamismäng (valitud radiobutton), siis tõenäosused seatakse nii,
+  // et mahajääjail on liidritest parem võimalus järgmine voor võita.
+  const voitjaIndeks = (score, punktini, randNum) => {
+    // Array. Mitu punkti on igal mängijal veel vaja koguda, et mäng võita
+    const mituVaja = score.map(arv => punktini - arv)
+    // Number. Mitu punkti on kõigi mängijate peale kokku puudu.
+    const kokkuPuudu = mituVaja.reduce((a, b) => a + b)
+    const protsMangijale = mituVaja.map(arv => arv / kokkuPuudu)
+    const kumProtsMangijale = protsMangijale.map((sum => value => (sum += value))(0))
+    let idx
+    for (let i = 0; i < kumProtsMangijale.length; i++) {
+      if (kumProtsMangijale[i] > randNum) {
+        idx = i
+        break
+      }
+    }
+    return idx
+  }
+
+  const pickWinner = () => {
+    const rand = Math.random()
+    const randNum = Math.floor(rand * state.names.length + 1) - 1
+    const voitjaIdx = state.fairGame ? randNum : voitjaIndeks(state.score, state.punktini, rand)
+    setProbabilities(voitjaIdx)
+    const voitja = state.names[voitjaIdx]
+    const copyScore = [...state.score]
+    copyScore[voitjaIdx] += 1
     // Kui max skoor on võrdne punktini mängitava skooriga, siis on meil olemas võitja
     let winnerGame
     if (Math.max(...copyScore) === state.punktini) {
@@ -158,7 +195,9 @@ const State = props => {
         lopetaMangBtnDisabled: state.lopetaMangBtnDisabled,
         alertNimed: state.alertNimed,
         stats: state.stats,
+        fairGame: state.fairGame,
         display: state.display,
+        protsMangijale: state.protsMangijale,
         setAlert,
         andmedSisse,
         pickWinner,

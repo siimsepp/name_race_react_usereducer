@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import Context from '../context/Context'
 
+import Tippy from '@tippy.js/react'
+import 'tippy.js/dist/tippy.css'
+
 function Sisend() {
   const [state, setState] = useState({
     names: '',
     punktini: ''
   })
+  const [fairGame, setFairGame] = useState(true)
 
   const context = useContext(Context)
   const { setAlert, andmedSisse } = context
@@ -19,6 +23,7 @@ function Sisend() {
   }, [])
 
   const handleChange = e => setState({ ...state, [e.target.name]: e.target.value })
+  const handleRadioChange = e => setFairGame(e.target.value === 'true')
 
   const arrName = names => {
     const arr = names
@@ -62,7 +67,8 @@ function Sisend() {
     } else {
       andmedSisse({
         arrNames,
-        punktini
+        punktini,
+        fairGame
       })
     }
   }
@@ -87,6 +93,37 @@ function Sisend() {
         onChange={handleChange}
         placeholder='Mitme punkti peale mäng käib'
       />
+
+      <div className='radio-btns'>
+        <div className='radio-btn'>
+          <Tippy content='Hetkeskoor ei muuda järgmise vooru võitmise tõenäosust.'>
+            <label>
+              <input
+                type='radio'
+                value='true'
+                name='fairGame'
+                checked={fairGame === true}
+                onChange={handleRadioChange}
+              />
+              Aus mäng
+            </label>
+          </Tippy>
+        </div>
+        <div className='radio-btn'>
+          <Tippy content='Mahajääjail on järgmises voorus eelis.'>
+            <label>
+              <input
+                type='radio'
+                value='false'
+                name='fairGame'
+                checked={fairGame === false}
+                onChange={handleRadioChange}
+              />
+              Tagaajamine
+            </label>
+          </Tippy>
+        </div>
+      </div>
 
       <button type='submit' className='btn btn-shadow blue'>
         Mängima

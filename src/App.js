@@ -15,11 +15,9 @@ function App() {
         </div>
         <Switch>
           <Fragment>
-            <div className='App'>
-              <div className='container'>
-                <Route exact path='/' component={NameRace} />
-                <Route exact path='/about' component={About} />
-              </div>
+            <div className='container'>
+              <Route exact path='/' component={NameRace} />
+              <Route exact path='/about' component={About} />
             </div>
           </Fragment>
         </Switch>

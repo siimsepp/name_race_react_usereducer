@@ -21,7 +21,7 @@ const Statistika = () => {
     <div>
       <p style={{ marginBottom: '1.5rem' }}>
         {nimedTekstina(names)} on osalenud{' '}
-        <span style={{ color: 'blue', fontSize: '22px' }}>{stats.reduce((a, b) => a + b)}.</span> mängus
+        <span style={{ color: 'blue', fontSize: '22px' }}>{stats.reduce((a, b) => a + b)}</span> mängus
       </p>
       <p>Tulemused:</p>
       <ul className='collection'>

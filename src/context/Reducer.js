@@ -7,6 +7,7 @@ const Reducer = (state, action) => {
         names: action.names,
         punktini: action.punktini,
         stats: action.stats,
+        fairGame: action.fairGame,
         display: {
           sisendForm: action.display.sisendForm,
           pickWinnerBtn: action.display.pickWinnerBtn,
@@ -92,6 +93,12 @@ const Reducer = (state, action) => {
           statistika: action.display.statistika
         }
       }
+    case 'SET_PROBS':
+      return {
+        ...state,
+        protsMangijale: action.protsMangijale
+      }
+
     default:
       return state
   }
